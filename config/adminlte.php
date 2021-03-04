@@ -225,26 +225,60 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => false,
-            'topnav' => true,
+            'text'        => 'Home',
+            'url'         => '/home',
+            'icon'        => 'nav-icon fas fa-home',
         ],
+        ['header' => 'VARIABLES'],
+        
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
+            'text'        => 'Reports',
+            'url'         => '/reports',
+            'icon'        => 'nav-icon fas fa-file-alt',
             'label'       => 4,
             'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Air Speed',
+            'url'         => '/speed',
+            'icon'        => 'nav-icon fas fa-wind',
+        ],
+        [
+            'text'        => 'Wind Direction',
+            'url'         => '/direction',
+            'icon'        => 'nav-icon fas fa-paper-plane',
+        ],
+        [
+            'text'        => 'Battery Voltage',
+            'url'         => '/battery',
+            'icon'        => 'nav-icon fas fa-bolt',
+        ],
+        [
+            'text'        => 'Power Generated',
+            'url'         => '/power',
+            'icon'        => 'nav-icon fas fa-car-battery',
+        ],
+        [
+            'text'        => 'Acumulated Energy',
+            'url'         => '/energy',
+            'icon'        => 'nav-icon fas fa-battery-full',
+        ],
+        [
+            'text'        => 'Alerts',
+            'url'         => '/alerts',
+            'icon'        => 'nav-icon fas fa-chart-line',
+            'label'       => 4,
+            'label_color' => 'danger',
+        ],
+        [
+            'text'        => 'Users',
+            'url'         => '/users',
+            'icon'        => 'fas fa-fw fa-users',
         ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => '/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
@@ -252,44 +286,44 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
+        // [
+        //     'text'    => 'multilevel',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //         [
+        //             'text'    => 'level_one',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'level_two',
+        //                     'url'     => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //     ],
+        // ],
       
     ],
 

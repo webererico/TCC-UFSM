@@ -8,7 +8,7 @@
 
 @section('content_header')
 
-<h1>Olá {{Auth::user()->name}}, bem-vindo ao Dashboard LabEnsaios</h1>
+<h1>Bem-vindo {{Auth::user()->name}}</h1>
 
 
 
