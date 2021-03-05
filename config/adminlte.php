@@ -50,7 +50,7 @@ return [
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -237,6 +237,18 @@ return [
             'icon'        => 'nav-icon fas fa-file-alt',
             'label'       => 4,
             'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Show Reports',
+                    'url'  => '/reports',
+                    'icon' => 'nav-icon fas fa-clipboard-list'
+                ],
+                [
+                    'text' => 'New Report',
+                    'url'  => '/report/new',
+                    'icon' => 'nav-icon fas fa-file'
+                ]
+            ]
         ],
         [
             'text'        => 'Air Speed',
@@ -278,14 +290,10 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => '/settings',
+            'url'  => '/profile',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+       
         // [
         //     'text'    => 'multilevel',
         //     'icon'    => 'fas fa-fw fa-share',

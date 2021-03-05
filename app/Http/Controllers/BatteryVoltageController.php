@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BatteryVoltage;
 use Illuminate\Http\Request;
 
 class BatteryVoltageController extends Controller
@@ -17,7 +18,8 @@ class BatteryVoltageController extends Controller
      */
     public function index()
     {
-        //
+        $batteryVoltageList = BatteryVoltage::paginate(50);
+        return view('batteryVoltage/index', ['valueList' => $batteryVoltageList]);
     }
 
     /**

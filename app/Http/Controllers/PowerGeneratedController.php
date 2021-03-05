@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PowerGenerated;
 use Illuminate\Http\Request;
 
 class PowerGeneratedController extends Controller
@@ -18,7 +19,8 @@ class PowerGeneratedController extends Controller
      */
     public function index()
     {
-        //
+        $powerGeneratedList = PowerGenerated::paginate(50);
+        return view('powerGenerated/index', ['valueList' => $powerGeneratedList]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WindDirection;
 use Illuminate\Http\Request;
 
 class WindDirectionController extends Controller
@@ -18,7 +19,8 @@ class WindDirectionController extends Controller
      */
     public function index()
     {
-        //
+        $windDirectionList = WindDirection::paginate(50);
+        return view('windDirection/index', ['valueList' => $windDirectionList]);
     }
 
     /**

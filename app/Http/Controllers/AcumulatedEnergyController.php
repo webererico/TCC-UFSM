@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcumulatedEnergy;
 use Illuminate\Http\Request;
 
 class AcumulatedEnergyController extends Controller
@@ -17,7 +18,8 @@ class AcumulatedEnergyController extends Controller
      */
     public function index()
     {
-        //
+        $acumulatedEnergyList = AcumulatedEnergy::paginate(50);
+        return view('acumulatedEnergy/index', ['valueList' => $acumulatedEnergyList]);
     }
 
     /**

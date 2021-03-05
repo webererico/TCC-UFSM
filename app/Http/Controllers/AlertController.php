@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alert;
 use Illuminate\Http\Request;
 
 class AlertController extends Controller
@@ -18,7 +19,8 @@ class AlertController extends Controller
      */
     public function index()
     {
-        //
+        $alerts = Alert::paginate(30);
+        return view ('/alert/index', ['alerts' => $alerts]);
     }
 
     /**

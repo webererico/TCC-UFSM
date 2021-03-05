@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -18,7 +22,9 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        $reports = DB::table('reports')->orderBy('created_at', 'DESC')->paginate(10);
+        $users = User::all();
+        return view('report/index', compact('reports', 'users'));
     }
 
     /**
@@ -28,7 +34,8 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('report/create');
+
     }
 
     /**
@@ -39,7 +46,24 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $report = new Report();
+        $from = $request->input('startDate');
+        $to = $request->input('finishDate');
+        $report->name = $request->input('name');
+        $report->start_at = $from;
+        $report->finish_at = $to;
+        $report->description = $request->input('description');
+        $report->user_id = Auth::user()->id;
+        $report->save();
+        if ($enreportsaio = true) {
+            return redirect()
+                ->back()
+                ->with('success', 'Report created!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Error to create report :(');
+        }
     }
 
     /**

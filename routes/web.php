@@ -8,6 +8,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WindDirectionController;
 use App\Http\Controllers\WindSpeedController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,9 +36,18 @@ Route::get('/energy', [AcumulatedEnergyController::class,'index'])->name('index.
 Route::get('/alert', [AlertController::class,'index'])->name('index.alert');
 Route::get('/battery', [BatteryVoltageController::class,'index'])->name('index.battery');
 Route::get('/power', [PowerGeneratedController::class,'index'])->name('index.power');
-Route::get('/reports', [ReportController::class,'index'])->name('index.report');
 Route::get('/direction', [WindDirectionController::class,'index'])->name('index.direction');
 Route::get('/speed', [WindSpeedController::class,'index'])->name('index.spped');
 Route::get('/users', [UserController::class,'index'])->name('index.users');
-Route::get('/profile', [UserController::class,'profile'])->name('index.profile');
 
+
+//  PROFILE
+Route::get('/profile', [UserController::class,'showProfile'])->name('index.profile');
+Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('update.profile');
+Route::get('/profile/delete',  [UserController::class,'deleteProfile'])->name('delete.profile');
+
+
+// REPORTS
+Route::get('/reports', [ReportController::class,'index'])->name('index.report');
+Route::get('/report/new', [ReportController::class, 'create'])->name('create.report');
+Route::post('/report/new', [ReportController::class, 'store'])->name('store.report');
