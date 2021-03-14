@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Models\User;
+use App\Models\Variable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,8 @@ class ReportController extends Controller
      */
     public function create()
     {
-        return view('report/create');
+        $variables = Variable::all();
+        return view('report/create', compact('variables'));
 
     }
 
@@ -49,6 +51,12 @@ class ReportController extends Controller
         $report = new Report();
         $from = $request->input('startDate');
         $to = $request->input('finishDate');
+        if($to < $from) {
+            return redirect()
+            ->back()
+            ->with('error', 'The data interval is not valid :(');
+        }
+        $report->variable_id = $request->input('variable');
         $report->name = $request->input('name');
         $report->start_at = $from;
         $report->finish_at = $to;
@@ -108,6 +116,20 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $report = Report::find($id);
+        dump($report);
+        if(!empty($report)){
+            $report->delete();
+            dump('deletou');
+            if ($report = true) {
+                return redirect()
+                    ->back()
+                    ->with('success', 'Report deleted!');
+            } else {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Error to delete report :(');
+            }
+        }
     }
 }

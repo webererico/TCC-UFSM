@@ -51,3 +51,4 @@ Route::get('/profile/delete',  [UserController::class,'deleteProfile'])->name('d
 Route::get('/reports', [ReportController::class,'index'])->name('index.report');
 Route::get('/report/new', [ReportController::class, 'create'])->name('create.report');
 Route::post('/report/new', [ReportController::class, 'store'])->name('store.report');
+Route::get('/report/destroy/{id}', [ReportController::class, 'destroy'])->name('destroy.report');

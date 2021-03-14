@@ -93,7 +93,7 @@ class UserController extends Controller
     public function showProfile()
     {
         $user = User::find(Auth::user()->id);
-        return view('user/profile', compact('user'));
+        return view('user.profile', compact('user'));
     }
 
     public function updateProfile(Request $request)

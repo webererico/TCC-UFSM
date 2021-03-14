@@ -16,6 +16,12 @@ class CreateAlertsTable extends Migration
         Schema::create('alerts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('variable_id');
+        });
+        Schema::table('alerts', function(Blueprint $table) {
+            $table->foreign('variable_id')->references('id')->on('variables');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

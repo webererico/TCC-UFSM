@@ -8,7 +8,7 @@
 
 @section('content_header')
 
-<h1>Bem-vindo {{Auth::user()->name}}</h1>
+<h1>Welcome, {{Auth::user()->name}}</h1>
 
 
 
@@ -22,29 +22,85 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{$airSpeed->standard}}</h3>
 
-                <p>New Orders</p>
+                <p>Air Speed</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="nav-icon fas fa-wind"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/speed" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-info">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$windDirection->standard ?? 0 }}<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
+                <p>Wind Direction</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="nav-icon fas fa-paper-plane"></i>
+              </div>
+              <a href="/direction" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{$batteryVoltage->standart ?? 0}}<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Battery Voltage</p>
+              </div>
+              <div class="icon">
+                <i class="nav-icon fas fa-bolt"></i>
+              </div>
+              <a href="/battery" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{$powerGenerated ?? 0}}<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Power Generated</p>
+              </div>
+              <div class="icon">
+                <i class="nav-icon fas fa-car-battery"></i>
+              </div>
+              <a href="/power" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{$acumulatedEnergy->standard ?? 0}}<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Acumulated Energy</p>
+              </div>
+              <div class="icon">
+                <i class="nav-icon fas fa-battery-full"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{$alerts ?? 0}}<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Alerts</p>
+              </div>
+              <div class="icon">
+              <i class="nav-icon fas fa-exclamation-triangle"></i>
+              </div>
+              <a href="/alert" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -57,7 +113,7 @@
                 <p>Reports</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="nav-icon fas fa-file-alt"></i>
               </div>
               <a href="/reports" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -72,7 +128,7 @@
                 <p>Users</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-fw fa-users"></i>
               </div>
               <a href="/users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>

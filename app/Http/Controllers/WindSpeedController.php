@@ -20,7 +20,7 @@ class WindSpeedController extends Controller
     public function index()
     {
         $windSpeedList = WindSpeed::paginate(50);
-        return view('windSpeed/index', ['valueList' => $windSpeedList]);
+        return view('windspeed.index', ['valueList' => $windSpeedList]);
     }
 
     /**

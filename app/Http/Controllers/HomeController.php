@@ -26,8 +26,14 @@ class HomeController extends Controller
     {
         $users = DB::table('users')->count();
         $reports = DB::table('reports')->count();
-        $windDirectionList = DB::table('wind_directions')->count();
-        return view('home', compact('users', 'reports', 'windDirectionList'));
+        $airSpeed = DB::table('wind_speeds')->latest()->first();
+        $windDirection = DB::table('wind_directions')->latest()->first();
+        $batteryVoltage = DB::table('battery_voltages')->latest()->first();
+        $powerGenerated = DB::table('power_generateds')->latest()->first();
+        $acumulatedEnergy = DB::table('acumulated_energies')->latest()->first();
+        $alerts = DB::table('alerts')->count();
+
+        return view('home', compact('users', 'reports', 'airSpeed', 'windDirection', 'batteryVoltage', 'powerGenerated', 'acumulatedEnergy', 'alerts'));
 
     }
 }

@@ -50,13 +50,14 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+
     </div>
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
 </div>
 <!-- /.col -->
+{{ $valueList->links() }}
+
 </div>
-
-
 @stop
