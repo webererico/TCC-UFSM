@@ -6,6 +6,7 @@ return [
     'email'                       => 'Email',
     'password'                    => 'Password',
     'retype_password'             => 'Retype password',
+    'masterkey'                   => 'Type the masterkey',
     'remember_me'                 => 'Remember Me',
     'register'                    => 'Register',
     'register_a_new_membership'   => 'Register a new membership',

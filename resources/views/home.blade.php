@@ -51,7 +51,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>{{$batteryVoltage->standart ?? 0}}<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$batteryVoltage->standart ?? 0}} Volts<h5 style="font-size: 20px">{{$batteryVoltage->created_at ?? 0}}</h5></h3>
 
                 <p>Battery Voltage</p>
               </div>
@@ -141,46 +141,65 @@
         <div class="col-md-10 offset-md-1">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <canvas id="canvas" height="280" width="600"></canvas>
+                    <div id="container" height="280" width="600"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-<script>
-
-    var barChartData = {
-        labels: ['WindDirection'],
-        datasets: [{
-            label: 'wind Direction',
-            backgroundColor: "blue",
-            data: windDirectionList
-        }]
-    };
-
-    window.onload = function() {
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myBar = new Chart(ctx, {
-            type: 'bar',
-            data: barChartData,
-            options: {
-                elements: {
-                    rectangle: {
-                        borderWidth: 2,
-                        borderColor: '#c1c1c1',
-                        borderSkipped: 'bottom'
-                    }
-                },
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Yearly User Joined'
-                }
-            }
-        });
-    };
-</script>
 </section>
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
+    var userData = <?php echo json_encode($userData)?>;
+
+    Highcharts.chart('container', {
+        title: {
+            text: 'New User Growth, 2020'
+        },
+        subtitle: {
+            text: 'Source: positronx.io'
+        },
+        xAxis: {
+            categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                'October', 'November', 'December'
+            ]
+        },
+        yAxis: {
+            title: {
+                text: 'Number of New Users'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+        plotOptions: {
+            series: {
+                allowPointSelect: true
+            }
+        },
+        series: [{
+            name: 'New Users',
+            data: userData
+        }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    });
+
+</script>
 @stop

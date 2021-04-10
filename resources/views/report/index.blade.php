@@ -7,37 +7,36 @@
 @stop
 
 @section('content')
-<div class="col-xs-12">
-  <div class="box">
-    <div class="box-header">
-      <h3 class="box-title">Saved Reports</h3>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Report List</h3>
     </div>
-    <!-- /.box-header -->
-    <div class="box-body table-responsive no-padding">
-      <table class="table table-striped">
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table table-striped">
+        <thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
           <th>Description</th>
           <th>Variable</th>
-          <th>Person</th>
           <th>Interval</th>
+          <th>Created By</th>
           <th>Created At</th>
           <th>Actions</th>
         </tr>
+        </thead>
         <?php foreach ($reports as $report) : ?>
-          <?php foreach ($users as $user) : ?>
-            <?php if ($report->user_id == $user->id) : ?>
               <tr>
                 <td> {{$report->id}} </td>
-                <td> {{$report->name}}</td>
+                <td> {{$report->reportName}}</td>
                 <td> {{$report->description}}</td>
-                <td> {{$report->variable_id}} </td>
-                <td>{{$user->name}}</td>
-                <td>{{$report->start_at}} to {{$report->finish_at}}</td>
-                <td>{{$report->created_at}}</td>
+                <td> {{$report->variableName}} </td>
+                <td> {{\Carbon\Carbon::parse($report->start_at)->format('d/m/Y h:m:s')}} to {{\Carbon\Carbon::parse($report->finish_at)->format('d/m/Y h:m:s')}}</td>                
+                <td> {{$report->userName}} </td>
+                <td> {{\Carbon\Carbon::parse($report->created_at)->format('d/m/Y h:m:s')}}</td>
                 <td>
-                  <a href="/report/download/pdf/{{$report->id}}" class="btn btn-sm btn-primary">
+                  <a href="{!! route('createPDF.report', ['id' => $report->id]) !!}" class="btn btn-sm btn-primary">
                     <i class="fas fa-file-pdf"></i>
                   </a>
                   <a href="/report/download/csv/{{$report->id}}" class="btn btn-sm btn-primary">
@@ -60,9 +59,9 @@
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                        <form action="/report/destroy/{{$report->id}}" method="GET">
+                        <form action="{!! route('destroy.report', ['id' => $report->id]) !!}" method="GET">
                         <button type="submit" class="btn btn-outline-light" >YES</button>
-                        <form>
+                        </form>
                       </div>
                     </div>
                     <!-- /.modal-content -->
@@ -75,8 +74,6 @@
                   <!-- <a href='/report/donwload/{{$report->id}}' class="label label-danger"><i class="fa fa-trash"></i> Delete</span></td> -->
                 </td>
               </tr>
-            <?php endif; ?>
-          <?php endforeach; ?>
         <?php endforeach; ?>
 
       </table>
@@ -86,7 +83,7 @@
     </div>
               
   </div>
-
+  <div class="col-xs-11">
   @if(session('success'))
   <div class="alert alert-success">
     {{ session('success') }}
@@ -98,5 +95,6 @@
     {{ session('error') }}
   </div>
   @endif
+
 </div>
 @stop

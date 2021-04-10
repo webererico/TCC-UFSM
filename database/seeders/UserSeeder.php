@@ -20,6 +20,14 @@ class UserSeeder extends Seeder
             'name' => 'Erico Rosiski Weber',
             'email' => 'ericoweber@hotmail.com',
             'password' => Hash::make('parati98'),
+            'admin' => true,
+            'created_at' => Carbon::now()->toDateTimeString(),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Usuario teste',
+            'email' => 'teste@teste.com.br',
+            'password' => Hash::make('teste'),
+            'admin' => false,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
     }

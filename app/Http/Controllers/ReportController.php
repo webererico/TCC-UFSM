@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcumulatedEnergy;
+use App\Models\BatteryVoltage;
+use App\Models\PowerGenerated;
 use App\Models\Report;
 use App\Models\User;
 use App\Models\Variable;
+use App\Models\WindDirection;
+use App\Models\WindSpeed;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +22,7 @@ class ReportController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +30,12 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = DB::table('reports')->orderBy('created_at', 'DESC')->paginate(10);
-        $users = User::all();
-        return view('report/index', compact('reports', 'users'));
+        $reports = DB::table('reports')
+            ->join('variables', 'variables.id', '=', 'reports.variable_id')
+            ->join('users', 'users.id', '=', 'reports.user_id')
+            ->orderBy('reports.created_at', 'DESC')
+            ->select('reports.name as reportName', 'variables.name as variableName', 'users.name as userName', 'reports.id as id', 'reports.created_at as created_at', 'reports.description as description', 'reports.start_at as start_at', 'reports.finish_at as finish_at')->paginate(10);
+        return view('report/index', compact('reports'));
     }
 
     /**
@@ -37,7 +47,6 @@ class ReportController extends Controller
     {
         $variables = Variable::all();
         return view('report/create', compact('variables'));
-
     }
 
     /**
@@ -51,10 +60,10 @@ class ReportController extends Controller
         $report = new Report();
         $from = $request->input('startDate');
         $to = $request->input('finishDate');
-        if($to < $from) {
+        if ($to < $from) {
             return redirect()
-            ->back()
-            ->with('error', 'The data interval is not valid :(');
+                ->back()
+                ->with('error', 'The data interval is not valid :(');
         }
         $report->variable_id = $request->input('variable');
         $report->name = $request->input('name');
@@ -118,17 +127,64 @@ class ReportController extends Controller
     {
         $report = Report::find($id);
         dump($report);
-        if(!empty($report)){
+        if (!empty($report)) {
             $report->delete();
-            dump('deletou');
+            dump('apagou');
             if ($report = true) {
-                return redirect()
-                    ->back()
+                return redirect()->route('index.report')
                     ->with('success', 'Report deleted!');
             } else {
-                return redirect()
-                    ->back()
+                return redirect()->route('index.report')
                     ->with('error', 'Error to delete report :(');
+            }
+        }
+    }
+
+
+
+    public function createPDF($id)
+    {
+        $report = Report::find($id);
+        if(!empty($report)){
+            $variable = Variable::find($report->variable_id);
+            $listValue = DB::table($variable->table_name)->whereBetween('created_at', [$report->start_at, $report->finish_at]);
+        }
+        $listValue = User::all();
+        // dump( User::all());
+        // die;
+        $pdf = PDF::loadView('report.pdf', $listValue);
+        return $pdf->download('report.pdf');
+    }
+
+    public function exportCSV($id) 
+    {
+        $report = Report::find($id);
+        if (!empty($report)) {
+            $from = $report->start_at;
+            $to = $report->finish_at;
+            switch ($report->ambient_id) {
+                case 1:
+                    $csv = WindSpeed::whereBetween('created_at', [$from, $to])->get();
+                    break;
+                case 2:
+                    $csv = BatteryVoltage::whereBetween('created_at', [$from, $to])->get();
+                    break;
+                case 3:
+                    $csv = PowerGenerated::whereBetween('created_at', [$from, $to])->get();
+                    break;
+                case 4:
+                    $csv = AcumulatedEnergy::whereBetween('created_at', [$from, $to])->get();
+                    break;
+                case 5:
+                    $csv = WindDirection::whereBetween('created_at', [$from, $to])->get();
+                    break;
+                default: 
+                    $csv = [];
+                    break;
+            }
+            
+            if (!empty($csv)) {
+                
             }
         }
     }

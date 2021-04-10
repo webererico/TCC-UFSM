@@ -17,7 +17,6 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->softDeletes();
             $table->timestamps();
             $table->dateTime('start_at');
             $table->dateTime('finish_at');
@@ -38,5 +37,7 @@ class CreateReportsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('reports');
+        
     }
+    
 }

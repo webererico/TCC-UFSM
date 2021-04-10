@@ -24,6 +24,10 @@
                     <th style="width: 10px">#</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Created at</th>
+                    @if ($auth->admin == true)
+                    <th>Actions</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +36,15 @@
                       <td>{{$user->id}}</td>
                       <td>{{$user->name}}</td>
                       <td>{{$user->email}}</td>
+                      <td>{{\Carbon\Carbon::parse($user->created_at)->format('d/m/Y')}}</td>
+                      @if ($auth->admin == true)
+                        @if ($user->admin == false )
+                          <td> <a href="{!! route('makeAdmin.users', ['id' => $user->id]) !!}" class="btn btn-sm btn-primary"> Make admin</a></td>
+                        @else 
+                        <td> Is admin</td>
+                        @endif  
+                        <td>  <a href="{!! route('destroy.users', ['id' => $user->id]) !!}" class="btn btn-sm btn-danger"> Remove user</a></td>
+                      @endif
                     </tr>      
                         
             <?php endforeach; ?>
@@ -45,5 +58,16 @@
 <!-- /.col -->
 </div>
 
+@if(session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+  @endif
+
+  @if(session('error'))
+  <div class="alert alert-danger">
+    {{ session('error') }}
+  </div>
+  @endif
 
 @stop

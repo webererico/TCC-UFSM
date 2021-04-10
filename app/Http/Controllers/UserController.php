@@ -20,8 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('/user/index', ['users' => $users]);
+        $auth = Auth::user();
+        $users = User::where('email', '!=', $auth->email)->get();
+        // $users = User::where('email', '!=', $auth->email)->paginate(20);
+        return view('/user/index', compact('users', 'auth'));
     }
 
     /**
@@ -87,7 +89,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        if ($user = true) {
+            return redirect()
+            ->back()
+            ->with('success', 'User removed!');
+        } else {
+            return redirect()
+            ->back()
+            ->with('error', 'Errors');
+        }
     }
 
     public function showProfile()
@@ -116,18 +128,18 @@ class UserController extends Controller
             } else {
                 return redirect()
             ->back()
-            ->with('error', 'As senhas informadas nao são iguais');
+            ->with('error', 'The passwords doest not match!');
             }
         } 
         
         if ($user = true) {
             return redirect()
             ->back()
-            ->with('success', 'Dados atualizados com sucesso!');
+            ->with('success', 'Data updated!');
         } else {
             return redirect()
             ->back()
-            ->with('error', 'Erro ao atualizar dados!');
+            ->with('error', 'Erro');
         }
     }
 
@@ -136,5 +148,22 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         $user->delete();
         return redirect('/home');
+    }
+
+    public function makeAdmin($id) {
+        $user = User::find($id);
+        $name = $user->name;
+        $user->admin = true;
+        $user->update();
+        if ($user = true) {
+            return redirect()
+            ->back()
+            ->with('success', 'User '.$name.' is now Admin!');
+        } else {
+            return redirect()
+            ->back()
+            ->with('error', 'Errors');
+        }
+
     }
 }
