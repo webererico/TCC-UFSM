@@ -39,7 +39,7 @@ Route::get('/alert', [AlertController::class,'index'])->name('index.alert');
 Route::get('/battery', [BatteryVoltageController::class,'index'])->name('index.battery');
 Route::get('/power', [PowerGeneratedController::class,'index'])->name('index.power');
 Route::get('/direction', [WindDirectionController::class,'index'])->name('index.direction');
-Route::get('/speed', [WindSpeedController::class,'index'])->name('index.spped');
+Route::get('/speed', [WindSpeedController::class,'index'])->name('index.speed');
 
 // USERS
 Route::get('/users', [UserController::class,'index'])->name('index.users');

@@ -19,8 +19,10 @@ class AlertController extends Controller
      */
     public function index()
     {
-        $alerts = Alert::paginate(30);
-        return view ('/alert/index', ['alerts' => $alerts]);
+        // $alerts = Alert::paginate(30);
+        // return view ('alert.index', ['alerts' => $alerts]);
+        return view ('alert.index');
+
     }
 
     /**

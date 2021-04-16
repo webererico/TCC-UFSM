@@ -277,7 +277,7 @@ return [
         ],
         [
             'text'        => 'Alerts',
-            'url'         => '/alerts',
+            'url'         => '/alert',
             'icon'        => 'nav-icon fas fa-chart-line',
             'label'       => 4,
             'label_color' => 'danger',
