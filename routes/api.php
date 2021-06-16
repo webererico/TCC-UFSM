@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApiTokenController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/login', [ApiTokenController::class, 'update'])->name('api.login');
+Route::get('/test',[ApiTokenController::class, 'test'])->name('api.test');
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware('auth:api')->get('/user-api', [UserController::class, 'apiProfile'])->name('api.user');

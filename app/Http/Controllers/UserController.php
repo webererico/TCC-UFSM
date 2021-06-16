@@ -11,7 +11,8 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->only(['index', 'showProfile', 'destroy', 'updateProfile', 'deleteProfile', 'makeAdmin']);
+        $this->middleware('auth:api')->only(['apiProfile']);
     }
     /**
      * Display a listing of the resource.
@@ -163,6 +164,19 @@ class UserController extends Controller
             return redirect()
             ->back()
             ->with('error', 'Errors');
+        }
+
+    }
+
+    public function apiProfile(Request $request){
+        $header = $request->bearerToken();
+        $user = User::where('api_token', $header)->first;
+        if ($user != null){ 
+            return response([
+                'name' => $user->name,
+                'email' => $user->email,
+                'admin' => $user->admin,
+            ], 200);
         }
 
     }

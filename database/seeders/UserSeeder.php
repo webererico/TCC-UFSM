@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'ericoweber@hotmail.com',
             'password' => Hash::make('parati98'),
             'admin' => true,
+            'api_token' => 'aaa',
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('users')->insert([
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'email' => 'teste@teste.com.br',
             'password' => Hash::make('teste'),
             'admin' => false,
+            'api_token' => 'bbb',
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
     }
